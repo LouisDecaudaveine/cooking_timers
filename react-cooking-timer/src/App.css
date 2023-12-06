@@ -1,0 +1,35 @@
+.App {
+  text-align: center;
+  
+}
+
+.Timer {
+  border: 1px solid #000;
+  border-radius: 10px;
+}
+
+.TimerTitle{
+
+}
+
+.TimerClock{
+
+}
+
+.TimerList{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.TimerSetter{
+  border: 1px solid #000;
+  border-radius: 10px;
+  padding: 1rem;
+}
+
+.TimerWrapper {
+  width: 300px;
+  border: 1px solid #000;
+  border-radius: 10px;
+  padding: 1rem;
+}
