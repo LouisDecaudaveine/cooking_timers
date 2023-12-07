@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
 import PauseButton from "./PauseButton";
+import TimerClock from "./TimerClock";
+import AlarmPlayer from "./AlarmPlayer";
+
 
 
 const FinishedTimer = () => {
     return (
-        <div>
+        <div className="FinishedTimer">
             FINISHED
+            <AlarmPlayer/>
         </div>
     )
 }
@@ -13,8 +17,8 @@ const FinishedTimer = () => {
 const UnfinishedTimer = ({timeLeft ,pauseCallBack, isPaused}) => {
 
     return(
-        <div>
-            <p className="TimerClock">{timeLeft}</p>
+        <div className="UnfinishedTimer">
+            <TimerClock timeLeft={timeLeft} />
             <PauseButton clickHandler={pauseCallBack} isPaused={isPaused}/>
         </div>
     )
@@ -26,7 +30,9 @@ const DeleteButton = ({id,deleteCallback}) => {
         deleteCallback(id);
     }
     return (
-        <button onClick={onClickHandler}>X</button>
+        <div className="DeleteButtonWrapper">
+            <button onClick={onClickHandler}>X</button>
+        </div>
     )
    
 }
@@ -50,9 +56,11 @@ function Timer({id, name, duration, deleteTimer}){
 
     useEffect(() => {
         if(!isPaused && timeLeft > 0){
-            setTimeout(()=>{
-                setTimeLeft(timeLeft-1000);
+            const timerId = setTimeout(()=>{
+                setTimeLeft(prevTimeLeft => prevTimeLeft-1);
             }, 1000);
+
+            return () => clearTimeout(timerId);
         }
 
     },[isPaused, timeLeft])
@@ -60,7 +68,6 @@ function Timer({id, name, duration, deleteTimer}){
 
     return(
         <div className="Timer">
-            <span> <DeleteButton id={id} deleteCallback={deleteTimer}/> </span>
             <div className="TimerBody">
                 <h3 className="TimerTitle">{name}</h3>
                 {timeLeft <= 0 ?
@@ -69,6 +76,7 @@ function Timer({id, name, duration, deleteTimer}){
                     <UnfinishedTimer timeLeft={timeLeft} pauseCallBack={pauseCallBack} isPaused={isPaused}/>}
 
             </div>
+            <DeleteButton id={id} deleteCallback={deleteTimer}/>
                 
         </div>
     )

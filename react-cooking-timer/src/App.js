@@ -6,7 +6,7 @@ import TimerWrapper from './components/TimerWrapper';
 function App() {
   return (
     <div className="App">
-      <Title title="Octo Timer" />
+      <Title title="TIMERS" />
         <TimerWrapper />
     </div>
   );
